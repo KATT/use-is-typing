@@ -6,19 +6,19 @@ export interface UseIsTypingProps {
 
 export type FieldElement = HTMLInputElement | HTMLTextAreaElement;
 
-export type Register = <Element extends FieldElement = FieldElement>(
+export type RegisterElement = <Element extends FieldElement = FieldElement>(
   el: Element | null
 ) => void;
 
 export function useIsTyping({ timeout = 1000 }: UseIsTypingProps = {}): [
   boolean,
-  Register
+  RegisterElement
 ] {
   const [isTyping, setIsTyping] = useState(false);
   const [currentEl, setCurrentEl] = useState<FieldElement | null>(null);
   const [nonce, setNonce] = useState(0);
 
-  const register: Register = useCallback(el => {
+  const register: RegisterElement = useCallback(el => {
     setCurrentEl(el);
     if (!el) {
       setIsTyping(false);
