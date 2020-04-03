@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useIsTyping } from '../src';
+import {TextField, Box, Typography} from '@material-ui/core';
+
 
 export default {
   title: 'Default',
@@ -26,13 +28,15 @@ export const TextArea = () => {
   )
 };
 
-export const MaterialUI = () => {
+export const MaterialUITextField = () => {
   const [isTyping, register] = useIsTyping();
   return (
     <div>
-      <textarea ref={register} placeholder="type something here" />
-      <br/>
-      Typing? {isTyping ? '✅' : '❌'}
+      <TextField label="Type something here" inputRef={register} />
+      <Box mb={2} />
+      <Typography variant="body1">
+        Typing? {isTyping ? '✅' : '❌'}
+      </Typography>
     </div>
   )
 };

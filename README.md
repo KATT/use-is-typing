@@ -34,6 +34,23 @@ const App = () => {
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
+#### Usage with [Material UI](https://material-ui.com/)
+
+```tsx
+export const MaterialUITextField = () => {
+  const [isTyping, register] = useIsTyping();
+  return (
+    <div>
+      <TextField label="Type something here" inputRef={register} />
+      <Box mb={2} />
+      <Typography variant="body1">
+        Typing? {isTyping ? '✅' : '❌'}
+      </Typography>
+    </div>
+  )
+};
+```
+
 ## Contributing
 
 This project was bootstrapped with [TSDX](https://github.com/jaredpalmer/tsdx). See sections below for info on how to get it running.
