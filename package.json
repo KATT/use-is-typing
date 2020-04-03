@@ -33,9 +33,9 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "use-istyping",
+  "name": "use-is-typing",
   "author": "KATT",
-  "module": "dist/use-istyping.esm.js",
+  "module": "dist/use-is-typing.esm.js",
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@storybook/addon-actions": "^5.3.18",
