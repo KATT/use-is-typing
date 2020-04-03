@@ -1,12 +1,16 @@
 import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Thing } from '../.';
+import { useIsTyping } from '../.';
 
 const App = () => {
+  const [isTyping, register] = useIsTyping();
+
   return (
     <div>
-      <Thing />
+      <textarea ref={register} />
+      <br />
+      Typing? {isTyping ? '✅' : '❌'}
     </div>
   );
 };
