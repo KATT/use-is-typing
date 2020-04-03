@@ -51,6 +51,16 @@ export const MaterialUITextField = () => {
 };
 ```
 
+### Customize timeout
+
+By default, the typing indicator is set to `false` after 1000ms, this can be changed:
+
+```tsx
+const [isTyping, register] = useIsTyping({ timeout: 300 }); // timeout after 300ms
+```
+
+
+
 ## Contributing
 
 This project was bootstrapped with [TSDX](https://github.com/jaredpalmer/tsdx). See sections below for info on how to get it running.

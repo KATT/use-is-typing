@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 
 export interface UseIsTypingProps {
+  /**
+   * Time in milliseconds before typing indicator gets reset. **Default:** `1000`
+   */
   timeout?: number;
 }
 
