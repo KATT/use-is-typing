@@ -2,10 +2,41 @@
 
 See if someone is typing into an input or textarea.
 
-
 ## Install
 
-🚧 TBC 🚧
+```sh
+yarn add use-is-typing
+```
+
+```
+npm i use-is-typing --save
+```
+
+## Example
+
+```tsx
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { useIsTyping } from 'use-is-typing';
+
+const App = () => {
+  const [isTyping, register] = useIsTyping();
+
+  return (
+    <div>
+      <textarea ref={register} />
+      <br />
+      Typing? {isTyping ? '✅' : '❌'}
+    </div>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
+## Contributing
+
+This project was bootstrapped with [TSDX](https://github.com/jaredpalmer/tsdx). See sections below for info on how to get it running.
 
 ## Commands
 
