@@ -14,7 +14,8 @@ npm i use-is-typing --save
 
 ## Example
 
-See more examples [`./storybook`](./stories/useIsTyping.stories.tsx).
+- See more examples [`./storybook`](./stories/useIsTyping.stories.tsx)
+- [Try it at CodeSandbox](https://codesandbox.io/s/use-is-typing-jz5i6)
 
 ### Basic
 
