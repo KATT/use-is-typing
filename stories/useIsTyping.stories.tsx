@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useIsTyping } from '../src';
 import {TextField, Box, Typography} from '@material-ui/core';
 
@@ -37,6 +37,33 @@ export const MaterialUITextField = () => {
       <Typography variant="body1">
         Typing? {isTyping ? '✅' : '❌'}
       </Typography>
+    </div>
+  )
+};
+
+export const TriggerEvents = () => {
+  const [isTyping, register] = useIsTyping();
+  useEffect(() => {
+    console.log('typing?', isTyping)
+
+    // [...] call API
+  }, [isTyping]);
+
+  useEffect(() => {
+    return () => {
+      console.log('unmounted -- probably stopped typing')
+
+      // [..] call API
+    }
+  }, [])
+
+  return (
+    <div>
+      Look into console log when using this
+      <br/>
+      <input ref={register} placeholder="type something here" />
+      <br/>
+      Typing? {isTyping ? '✅' : '❌'}
     </div>
   )
 };

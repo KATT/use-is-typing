@@ -14,6 +14,10 @@ npm i use-is-typing --save
 
 ## Example
 
+See more examples [`./storybook`](./stories/useIsTyping.stories.tsx).
+
+### Basic
+
 ```tsx
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -34,7 +38,7 @@ const App = () => {
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
-#### Usage with [Material UI](https://material-ui.com/)
+### With [Material UI](https://material-ui.com/)
 
 ```tsx
 export const MaterialUITextField = () => {
