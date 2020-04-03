@@ -19,7 +19,6 @@ export function useIsTyping({ timeout = 1000 }: UseIsTypingProps = {}): [
   const [nonce, setNonce] = useState(0);
 
   const register: Register = useCallback(el => {
-    // console.log('register', el)
     setCurrentEl(el);
     if (!el) {
       setIsTyping(false);
@@ -31,12 +30,10 @@ export function useIsTyping({ timeout = 1000 }: UseIsTypingProps = {}): [
       return;
     }
     const t = setTimeout(() => {
-      // console.log('not typing')
       setIsTyping(false);
     }, timeout);
 
     return () => {
-      // console.log('clearing timeout')
       clearTimeout(t);
     };
   }, [nonce, isTyping, timeout]);
@@ -45,9 +42,7 @@ export function useIsTyping({ timeout = 1000 }: UseIsTypingProps = {}): [
     if (!currentEl) {
       return;
     }
-    // console.log('new el')
     const eventListener = (e: Event) => {
-      // console.log('event fired', e);
       const hasValue = (e.target as FieldElement).value !== '';
 
       setIsTyping(hasValue);
