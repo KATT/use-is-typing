@@ -48,6 +48,7 @@ export function useIsTyping({ timeout = 1000 }: UseIsTypingProps = {}): [
   }, []);
 
   useEffect(() => {
+    setIsTyping(false);
     if (!currentEl) {
       return;
     }
