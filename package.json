@@ -14,7 +14,7 @@
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
-    "test": "tsdx test --passWithNoTests",
+    "test": "yarn lint && tsdx test",
     "lint": "tsdx lint",
     "prepare": "tsdx build",
     "storybook": "start-storybook -p 6006",
@@ -22,14 +22,18 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "tsdx lint --fix"
+      "pre-commit": "lint-staged",
+      "post-commit": "git update-index --again"
     }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json}": "yarn lint --fix"
   },
   "prettier": {
     "printWidth": 80,
     "semi": true,
     "singleQuote": true,
-    "trailingComma": "always"
+    "trailingComma": "all"
   },
   "name": "use-is-typing",
   "author": "KATT",
@@ -51,6 +55,7 @@
     "@types/react-dom": "^16.9.6",
     "babel-loader": "^8.1.0",
     "husky": "^4.2.3",
+    "lint-staged": "^10.1.2",
     "react": "^16.13.1",
     "react-docgen-typescript-loader": "^3.7.2",
     "react-dom": "^16.13.1",

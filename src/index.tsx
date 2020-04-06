@@ -10,26 +10,26 @@ export interface UseIsTypingProps {
 export type TextElement = HTMLInputElement | HTMLTextAreaElement;
 
 export type RegisterElement = <Element extends TextElement = TextElement>(
-  el: Element | null
+  el: Element | null,
 ) => void;
 
 export function useIsTyping({ timeout = 1000 }: UseIsTypingProps = {}): [
   boolean,
-  RegisterElement
+  RegisterElement,
 ] {
   const [isTyping, setIsTyping] = useState(false);
   const [currentEl, setCurrentEl] = useState<TextElement | null>(null);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const reset = useCallback(() => {
     // Debounce `reset()` based on `timeout`
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
     timeoutRef.current = setTimeout(() => {
-      setIsTyping(false)
-    }, timeout)
-  }, [timeout])
+      setIsTyping(false);
+    }, timeout);
+  }, [timeout]);
 
   const register: RegisterElement = useCallback(el => {
     setCurrentEl(el);
@@ -44,13 +44,14 @@ export function useIsTyping({ timeout = 1000 }: UseIsTypingProps = {}): [
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
-    }
-  }, [])
+    };
+  }, []);
 
   useEffect(() => {
     if (!currentEl) {
       return;
     }
+
     const keyUpDownListener = (e: Event) => {
       const hasValue = (e.target as TextElement).value !== '';
 
@@ -61,9 +62,9 @@ export function useIsTyping({ timeout = 1000 }: UseIsTypingProps = {}): [
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
-      setIsTyping(false)
-    }
-    
+      setIsTyping(false);
+    };
+
     currentEl.addEventListener('keyup', keyUpDownListener);
     currentEl.addEventListener('keydown', keyUpDownListener);
     currentEl.addEventListener('blur', blurListener);
@@ -73,7 +74,7 @@ export function useIsTyping({ timeout = 1000 }: UseIsTypingProps = {}): [
       currentEl.removeEventListener('keyup', keyUpDownListener);
       currentEl.removeEventListener('blur', blurListener);
     };
-  }, [currentEl]);
+  }, [currentEl, reset]);
 
   return [isTyping, register];
 }
