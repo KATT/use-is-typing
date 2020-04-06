@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 
 export interface UseIsTypingProps {
   /**
@@ -7,9 +7,9 @@ export interface UseIsTypingProps {
   timeout?: number;
 }
 
-export type FieldElement = HTMLInputElement | HTMLTextAreaElement;
+export type TextElement = HTMLInputElement | HTMLTextAreaElement;
 
-export type RegisterElement = <Element extends FieldElement = FieldElement>(
+export type RegisterElement = <Element extends TextElement = TextElement>(
   el: Element | null
 ) => void;
 
@@ -18,8 +18,18 @@ export function useIsTyping({ timeout = 1000 }: UseIsTypingProps = {}): [
   RegisterElement
 ] {
   const [isTyping, setIsTyping] = useState(false);
-  const [currentEl, setCurrentEl] = useState<FieldElement | null>(null);
-  const [nonce, setNonce] = useState(0);
+  const [currentEl, setCurrentEl] = useState<TextElement | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  
+  const reset = useCallback(() => {
+    // Debounce `reset()` based on `timeout`
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    timeoutRef.current = setTimeout(() => {
+      setIsTyping(false)
+    }, timeout)
+  }, [timeout])
 
   const register: RegisterElement = useCallback(el => {
     setCurrentEl(el);
@@ -29,27 +39,23 @@ export function useIsTyping({ timeout = 1000 }: UseIsTypingProps = {}): [
   }, []);
 
   useEffect(() => {
-    if (!isTyping) {
-      return;
-    }
-    const t = setTimeout(() => {
-      setIsTyping(false);
-    }, timeout);
-
+    // Clear timeout on unmount
     return () => {
-      clearTimeout(t);
-    };
-  }, [nonce, isTyping, timeout]);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    }
+  }, [])
 
   useEffect(() => {
     if (!currentEl) {
       return;
     }
     const eventListener = (e: Event) => {
-      const hasValue = (e.target as FieldElement).value !== '';
+      const hasValue = (e.target as TextElement).value !== '';
 
       setIsTyping(hasValue);
-      setNonce(Math.random());
+      reset();
     };
     currentEl.addEventListener('keyup', eventListener);
     currentEl.addEventListener('keydown', eventListener);
