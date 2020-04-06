@@ -51,17 +51,27 @@ export function useIsTyping({ timeout = 1000 }: UseIsTypingProps = {}): [
     if (!currentEl) {
       return;
     }
-    const eventListener = (e: Event) => {
+    const keyUpDownListener = (e: Event) => {
       const hasValue = (e.target as TextElement).value !== '';
 
       setIsTyping(hasValue);
       reset();
     };
-    currentEl.addEventListener('keyup', eventListener);
-    currentEl.addEventListener('keydown', eventListener);
+    const blurListener = () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      setIsTyping(false)
+    }
+    
+    currentEl.addEventListener('keyup', keyUpDownListener);
+    currentEl.addEventListener('keydown', keyUpDownListener);
+    currentEl.addEventListener('blur', blurListener);
+
     return () => {
-      currentEl.removeEventListener('keydown', eventListener);
-      currentEl.removeEventListener('keyup', eventListener);
+      currentEl.removeEventListener('keydown', keyUpDownListener);
+      currentEl.removeEventListener('keyup', keyUpDownListener);
+      currentEl.removeEventListener('blur', blurListener);
     };
   }, [currentEl]);
 
