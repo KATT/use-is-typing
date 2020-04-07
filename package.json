@@ -15,7 +15,7 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "yarn lint && tsdx test",
-    "lint": "tsdx lint",
+    "lint": "tsdx lint src test stories",
     "prepare": "tsdx build",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
