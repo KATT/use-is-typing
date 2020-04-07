@@ -1,4 +1,4 @@
-# `use-is-typing`
+# `use-is-typing` <img src="https://raw.githubusercontent.com/KATT/use-is-typing/master/typing-indicator.gif" width="50">
 
 See if someone is typing into an input or textarea.
 
